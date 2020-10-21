@@ -16,23 +16,34 @@ _member = Sym('member?')
 _struct = Sym('struct')
 
 # A prompt-read-eval-print loop.
-def repl(prompt='Code: '):
+def repl(prompt='Lispy>> '):
     print("Lispy Version 3.0\n Get Coding!\n")
     while True:
-        inpt = raw_input(prompt)
+        inpt = input(prompt)
         try:
             if inpt == "quit": break
             val = eval(parse(inpt))
-            if val is not None: 
+            if val is not None:
                 print(schemestr(val))
         except Exception as e:
-                print '%s: %s' % (type(e).__name__, e)
+                print('%s: %s' % (type(e).__name__, e))
 
 # Convert a Python object back into a Scheme-readable string.
 def schemestr(exp):
     if isinstance(exp, list):
-        return '(' + ' '.join(map(schemestr, exp)) + ')' 
+        return '(' + ' '.join(map(schemestr, exp)) + ')'
     else:
         return str(exp)
+
+def evaluate_file(file):
+    """Returns result of evaluating a file in Carlae
+    """
+    f = open(file, "r")
+    toStr = f.read()
+    p = parse(toStr)
+    return evaluate(p)
+
+for file in sys.argv[1:]:
+    evaluate_file(file)
 
 repl()

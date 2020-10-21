@@ -1,7 +1,7 @@
 # Parsing Module
 
 from __future__ import division
-import re, sys, StringIO
+import re, sys
 
 # A Scheme List is implemented as a Python list
 # A Scheme Number is implemented as a Python int or float
@@ -22,7 +22,7 @@ symbol_table = {}
 
 # Find or create unique Symbol entry for str s in symbol table
 def Sym(s):
-    if s not in symbol_table: 
+    if s not in symbol_table:
         symbol_table[s] = Symbol(s)
     return symbol_table[s]
 
@@ -71,7 +71,7 @@ def read_from_tokens(tokens):
         string += " ".join(L)
         string += end_quote
         return ['quote',  string]
-    
+
     elif ';' == token:
         L = []
         L.append(token)
